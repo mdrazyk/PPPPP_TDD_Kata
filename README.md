@@ -36,4 +36,4 @@ or
 yarn test
 ```
 
-You can also run your test with ```--watch``` tag to run your test continuously
+You can also run your test with ```--watch``` tag to run them continuously
