@@ -10,9 +10,6 @@ const HelloWorld = () => {
 		const splittedByNewline = arg.split('\n');
 		if (arg && splittedByNewline[0].includes('//')) {
 			const [first, ...rest] = splittedByNewline;
-
-			let regexResults;
-			while(regexResults = )
 			splitBy = first.replace('//', '');
 			toSplit = rest.join('\n');
 		}
