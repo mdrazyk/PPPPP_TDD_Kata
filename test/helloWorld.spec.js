@@ -112,4 +112,26 @@ describe('Calculator', () => {
     // then
     assert.equal(result, 29);
   });
+
+  it('works with many minuses', () => {
+    // given
+    const add = Calculator.add;
+
+    // when
+    const result = add('1,--2,--9,2,----5');
+
+    // then
+    assert.equal(result, 19);
+  });
+
+  it('rejects negative numbers - odd number of minuses', () => {
+    // given
+    const add = Calculator.add;
+
+
+    // then
+    assert.throws(() => {
+      add('1,---9');
+    }, /negatives not allowed. Passed:1,-9/);
+  });
 });

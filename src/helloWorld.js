@@ -21,9 +21,17 @@ const HelloWorld = () => {
 
 		const numbers = toSplit.split(splitBy);
 
+		const matchMultipleMinuses = element => {
+			while (/^--/.test(element)) {
+				element = element.replace(/^--/, '');
+			}
+
+			return element;
+		};
+
 		const result = numbers.reduce(
 			({ total, negatives }, element) => {
-				const numberToAdd = parseInt(element || 0);
+				const numberToAdd = parseInt(matchMultipleMinuses(element) || 0);
 
 				return {
 					total: numberToAdd > 1000 ? total : total + numberToAdd,
