@@ -4,13 +4,13 @@ import add from '../src/add';
 describe('Add function', () => {
   it('should return 0 for empty string', () => {
     // given 
-    const empty = ''
+    const input = '';
     const expected = 0;
 
     //when
-    const result = add();
+    const result = add(input);
 
     // then
-    assert(result, expected);
+    assert(result === expected);
   })
 });
