@@ -1,18 +1,28 @@
-export default function add(input, delimiter = ',') {
+export default function add(input, delimiters = ',') {
   if (input.startsWith('//')) {
     const [header, ...parts] = input
       .split('\n');
 
-    delimiter = header
-      .replace('//', '');
+    const MULTIPLE_DELIMITER_REGEX = /\[([^\[]+)\]+/g;
 
-    input = parts.join(delimiter);
+    delimiters = header
+      .replace('//', '')
+      .match(MULTIPLE_DELIMITER_REGEX);
+
+    delimiters.map(delimiter => {
+      return delimiter.substr(1, -2);
+    });
+
+
+    console.log(delimiters);
+
+    input = parts.join(delimiters);
   }
 
   const result = input
     .split('\n')
-    .join(delimiter)
-    .split(delimiter)
+    .join(delimiters)
+    .split(delimiters)
     .map(element => Number(element))
     .reduce(({ total, negatives }, element) => {
       if (Number.isNaN(element)) {

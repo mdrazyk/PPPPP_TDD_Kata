@@ -77,7 +77,7 @@ describe('Add function', () => {
 
   it('should change delimiter', () => {
     // given
-    const input = '//;\n1;5';
+    const input = '//[;]\n1;5';
     const expected = 6;
 
     // when
@@ -103,6 +103,30 @@ describe('Add function', () => {
     // given
     const input = '1,1000,1005,4';
     const expected = 5;
+
+    // when
+    const result = add(input);
+
+    // then
+    assert.equal(result, expected);
+  });
+
+  it('allows multiple characters delimiter', () => {
+    // given
+    const input = '//[***]\n1***2***3';
+    const expected = 6;
+
+    // when
+    const result = add(input);
+
+    // then
+    assert.equal(result, expected);
+  });
+
+  it('allows multiple delimiter', () => {
+    // given
+    const input = '//[*][%]\n1*2%3';
+    const expected = 6;
 
     // when
     const result = add(input);
