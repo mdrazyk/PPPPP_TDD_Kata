@@ -50,4 +50,29 @@ describe('Add function', () => {
     // then
     assert.equal(result, expected);
   });
+
+  it('should return sum of many numbers splitted by new line', () => {
+    // given
+    const input = '1\n3\n8\n7';
+    const expected = 19;
+
+    // when
+    const result = add(input);
+
+    // then
+    assert.equal(result, expected);
+  });
+
+  it('should throw error when non number given', () => {
+    // given
+    const input = '1,a,2';
+    const expected = 19;
+
+    assert.throws(() => {
+      // when
+      add(input);
+    },
+    // then
+    /^Error: Invalid argument error/)
+  });
 });
