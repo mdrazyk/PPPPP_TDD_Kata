@@ -38,4 +38,16 @@ describe('Add function', () => {
     // then
     assert.equal(result, expected);
   });
+
+  it('should return sum of many numbers', () => {
+    // given
+    const input = '1,3,8,7';
+    const expected = 19;
+
+    // when
+    const result = add(input);
+
+    // then
+    assert.equal(result, expected);
+  });
 });
