@@ -98,4 +98,16 @@ describe('Add function', () => {
     // then
     /^Error: negatives not allowed: -1,-2/)
   });
+
+  it('should ignore numbers bigger than 1000', () => {
+    // given
+    const input = '1,1000,1005,4';
+    const expected = 5;
+
+    // when
+    const result = add(input);
+
+    // then
+    assert.equal(result, expected);
+  });
 });

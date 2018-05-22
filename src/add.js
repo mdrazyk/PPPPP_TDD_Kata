@@ -18,9 +18,14 @@ export default function add(input, delimiter = ',') {
       if (Number.isNaN(element)) {
         throw new Error('Invalid argument error');
       }
+      
+      if (element < 0) {
+        negatives = [ ...negatives, element ];
+      }
+
       return {
-        total: total + element,
-        negatives: [...negatives, ...(element < 0 ? [element] : [])],
+        total: element < 1000 ? total + element :  total,
+        negatives,
       };
     },
     {
