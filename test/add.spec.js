@@ -27,7 +27,7 @@ describe('Add function', () => {
   });
 
 
-  it(`should return 2 for passing '1,2'`, () => {
+  it(`should return 3 for passing '1,2'`, () => {
     // given
     const input = '1,2';
     const expected = 3;
@@ -130,6 +130,57 @@ describe('Add function', () => {
 
     // when
     const result = add(input);
+
+    // then
+    assert.equal(result, expected);
+  });
+
+  it('allows multiple longer than one character delimiters', () => {
+    // given
+    const input = '//[*&^][abcd]\n1*&^2abcd6';
+    const expected = 9;
+
+    // when
+    const result = add(input);
+
+    // then
+    assert.equal(result, expected);
+  });
+
+  it('treats number with even number of minuses as positive', () => {
+    // given
+    const input = '--1,2,----2';
+    const expected = 5;
+
+    //when
+    const result = add(input);
+
+    // then
+    assert.equal(result, expected);
+  });
+  it('calculates number based on multiple strings', () => {
+    // given
+    const input1 = '4,3';
+    const input2 = '1,5';
+
+    const expected = 13;
+
+    //when
+    const result = add(input1, input2);
+
+    // then
+    assert.equal(result, expected);
+  });
+  it('accepts array of additional delimiters', () => {
+    // given
+    const input1 = '4,3';
+    const input2 = ['*'];
+    const input3 = '1*5';
+
+    const expected = 13;
+
+    //when
+    const result = add(input1, input2, input3);
 
     // then
     assert.equal(result, expected);

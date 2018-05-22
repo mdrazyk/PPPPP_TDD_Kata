@@ -1,4 +1,9 @@
-export default function add(input, delimiters = ',') {
+function escapeRegExp(str) {
+  return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
+}
+
+function add(input, delimiters = ',') {
+  let delimitersRegex = /\n|,/g;
   if (input.startsWith('//')) {
     const [header, ...parts] = input
       .split('\n');
@@ -9,21 +14,20 @@ export default function add(input, delimiters = ',') {
       .replace('//', '')
       .match(MULTIPLE_DELIMITER_REGEX);
 
-    delimiters.map(delimiter => {
-      return delimiter.substr(1, -2);
+    delimiters = delimiters.map(delimiter => {
+      return escapeRegExp(delimiter.substr(1, delimiter.length - 2));
     });
 
+    delimitersRegex = new RegExp(`${delimiters.join('|')}`);
 
-    console.log(delimiters);
-
-    input = parts.join(delimiters);
+    input = parts.join('\n');
   }
 
   const result = input
-    .split('\n')
-    .join(delimiters)
-    .split(delimiters)
-    .map(element => Number(element))
+    .split(delimitersRegex)
+    .map(element => {
+      return Number(element.replace(/--/g, ''))
+    })
     .reduce(({ total, negatives }, element) => {
       if (Number.isNaN(element)) {
         throw new Error('Invalid argument error');
@@ -49,3 +53,27 @@ export default function add(input, delimiters = ',') {
 
   return result.total;
 }
+
+export default (...args) => {
+  const params = {strings: [], delimiters: []};
+  args.forEach(arg => {
+    if (Array.isArray(arg)) {
+      params.delimiters = [...params.delimiters, ...arg];
+    } else {
+      params.strings.push(arg);
+    }
+  });
+
+  if (params.delimiters.length) {
+    const additionalDelimiters = `[${params.delimiters.join('][')}]`;
+
+    params.strings = params.strings.map(el => {
+      if (el.startsWith('//')) {
+        return el.replace(/^\/\//, `//${additionalDelimiters}`);
+      }
+      return `//${additionalDelimiters}\n${el}`;
+    });
+  }
+
+  return params.strings.reduce((sum, el) => sum + add(el), 0);
+};
