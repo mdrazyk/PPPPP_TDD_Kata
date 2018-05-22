@@ -66,7 +66,6 @@ describe('Add function', () => {
   it('should throw error when non number given', () => {
     // given
     const input = '1,a,2';
-    const expected = 19;
 
     assert.throws(() => {
       // when
@@ -74,5 +73,29 @@ describe('Add function', () => {
     },
     // then
     /^Error: Invalid argument error/)
+  });
+
+  it('should change delimiter', () => {
+    // given
+    const input = '//;\n1;5';
+    const expected = 6;
+
+    // when
+    const result = add(input);
+
+    // then
+    assert.equal(result, expected);
+  });
+
+  it('should throw error when negative number given', () => {
+    // given
+    const input = '-1,-2';
+
+    assert.throws(() => {
+      // when
+      add(input);
+    },
+    // then
+    /^Error: negatives not allowed: -1,-2/)
   });
 });
