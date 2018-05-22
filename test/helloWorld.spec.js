@@ -101,4 +101,15 @@ describe('Calculator', () => {
     // then
     assert.equal(result, 11);
   });
+
+  it('works with many long delimiters', () => {
+    // given
+    const add = Calculator.add;
+
+    // when
+    const result = add('//[dupa][chuj]\n1dupa23chuj5');
+
+    // then
+    assert.equal(result, 29);
+  });
 });
