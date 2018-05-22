@@ -1,37 +1,93 @@
 import assert from 'assert';
-import HelloWorld from '../src/helloWorld';
+import Calculator from '../src/helloWorld';
 
-describe('HelloWorld', () => {
-	it(`should return 'Hello' for sayHello function call`, () => {
-		// given
-    const sayHello = HelloWorld.sayHello;
+describe('Calculator', () => {
+	it(`returns 0 for empty array`, () => {
+    // given
+    const add = Calculator.add;
 
-		// when
-		const hello = sayHello();
+    // when
+    const result = add("");
 
-		// then
-		assert.equal(hello, 'Hello');
+    // then
+    assert.equal(result, 0);
 	});
 
-	it(`should return 'World' for sayWorld function call`, () => {
-		// given
-		const sayWorld = HelloWorld.sayWorld;
+	it('returns the same number if there is only one number passed', () => {
+    // given
+    const add = Calculator.add;
 
-		// when
-		const world = sayWorld();
+    // when
+    const result = add("1");
+    const result2 = add("2");
 
-		// then
-		assert.equal(world, 'World');
+    // then
+    assert.equal(result, 1);
+    assert.equal(result2, 2);
+  });
+
+	it('thows exception when non string given', () => {
+    // given
+    const add = Calculator.add;
+
+
+		assert.throws(() => {
+				//when
+				add({});
+			},
+			//Then
+      /^Error: Wrong argument$/
+			);
 	});
 
-	it(`should return 'Hello World' for sayHelloWorld function call`, () => {
-		// given
-		const sayHelloWorld = HelloWorld.sayHelloWorld;
 
-		// when
-		const helloWorld = sayHelloWorld();
+  it('adds multiple numbers separated with comma', () => {
+    // given
+    const add = Calculator.add;
+
+    // when
+		const result = add('2,5,10');
 
 		// then
-		assert(helloWorld, 'Hello World');
+		assert.equal(result, 17);
+  });
+
+  it('throws exception when non number given as string argument', () => {
+    // given
+    const add = Calculator.add;
+
+
+    assert.throws(() => {
+        //when
+        add('1,a,2');
+      },
+      //Then
+      /^Error: Wrong argument$/
+    );
+	});
+
+  it('allows new lines between numbers (instead of commas)', () => {
+    // given
+    const add = Calculator.add;
+
+  	// when
+  	const result = add('2\n5,10');
+
+  	// then
+  	assert.equal(result, 17);
+	});
+
+  it('throws exception error for newline and comma', () => {
+    // given
+    const add = Calculator.add;
+
+
+    assert.throws(() => {
+        //when
+        add('1,\n2');
+      },
+      //Then
+      /^Error: Wrong argument$/
+    );
 	});
 });
