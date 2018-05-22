@@ -54,6 +54,16 @@ describe('Calculator', () => {
     const result = Calculator.Add(numbersString);
 
     // then
-    assert.equal(result, 22);
+    assert.equal(result, 4);
+  });
+  it(`should return 0 when new line is at the of the string`, () => {
+    // given
+    const numbersString = '1,\\n';
+
+    // when
+    const result = Calculator.Add(numbersString);
+
+    // then
+    assert.equal(result, 0);
   });
 });

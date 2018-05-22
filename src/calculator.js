@@ -6,13 +6,9 @@ class calculator {
       return 0;
     }
 
-    const numbers = inputString.split(/d/g);
+    const numbers = inputString.match(/\d+/g);
 
-    numbers.forEach(number => {
-      result += +number;
-    });
-
-    return result || 0;
+    return numbers.reduce((curr, prev) => Number(prev) + Number(curr), 0);
   }
 }
 
