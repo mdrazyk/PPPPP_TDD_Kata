@@ -4,26 +4,18 @@ const HelloWorld = () => {
 	const sayHelloWorld = () => `${sayHello()} ${sayWorld()}`;
 
 	const add = (arg) => {
-		if (typeof arg !== 'string') {
-			throw new Error('Wrong argument');
+		let splitBy = /\n|,/g;
+		let split = arg;
+
+		if (arg && arg.split('\n')[0].includes('//')) {
+			const [first, ...rest] = argArr;
+			splitBy = argArr[0].replace('//', '');
+			split = rest.join('\n');
 		}
 
-		return arg
-      .split('\n')
-			.join(',')
-			.split(',')
-			.map(item => {
-				if (item === '') {
-					return NaN;
-				}
-        return Number(item);
-      })
-			.reduce((total, element) => {
-				if (Number.isNaN(element)) {
-          throw new Error('Wrong argument');
-				}
-				return total + element;
-			}, 0);
+		return split.split(splitBy).reduce((total, element) => {
+      return total + parseInt(element || 0);
+    }, 0);
   };
 
 	return {

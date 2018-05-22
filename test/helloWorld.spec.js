@@ -26,21 +26,6 @@ describe('Calculator', () => {
     assert.equal(result2, 2);
   });
 
-	it('thows exception when non string given', () => {
-    // given
-    const add = Calculator.add;
-
-
-		assert.throws(() => {
-				//when
-				add({});
-			},
-			//Then
-      /^Error: Wrong argument$/
-			);
-	});
-
-
   it('adds multiple numbers separated with comma', () => {
     // given
     const add = Calculator.add;
@@ -51,20 +36,6 @@ describe('Calculator', () => {
 		// then
 		assert.equal(result, 17);
   });
-
-  it('throws exception when non number given as string argument', () => {
-    // given
-    const add = Calculator.add;
-
-
-    assert.throws(() => {
-        //when
-        add('1,a,2');
-      },
-      //Then
-      /^Error: Wrong argument$/
-    );
-	});
 
   it('allows new lines between numbers (instead of commas)', () => {
     // given
@@ -77,17 +48,24 @@ describe('Calculator', () => {
   	assert.equal(result, 17);
 	});
 
-  it('throws exception error for newline and comma', () => {
+  it('allows to provide custom delimiters in first line of input', () => {
+  	// given
+		const add = Calculator.add;
+
+		// when
+		const result = add('//x\n2x5x12');
+
+		// then
+		assert.equal(result, 19);
+	});
+
+  it('throws an error “negatives not allowed” if a negative number passed', () => {
     // given
     const add = Calculator.add;
 
-
+    // then
     assert.throws(() => {
-        //when
-        add('1,\n2');
-      },
-      //Then
-      /^Error: Wrong argument$/
-    );
+      add('2,-5,10,-11');
+		}, /negatives not allowed. Passed:-5,-11/);
 	});
 });
