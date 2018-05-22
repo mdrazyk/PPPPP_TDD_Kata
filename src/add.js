@@ -3,5 +3,7 @@ export default function add(input) {
   const a = Number(aAsString);
   const b = Number(bAsString);
 
+  const result = input.split(',').reduce((prev, curr) => prev + curr ,0);
+
   return a + b;
 }
