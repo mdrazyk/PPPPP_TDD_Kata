@@ -1,19 +1,19 @@
 class calculator {
   static Add(inputString) {
-    let result = 0;
-    const numbers = inputString.match(/\d+/g);
+    if (!inputString) {
+      return 0;
+    }
 
-    const negativeNumbers = inputString.match(/\-./g);
+    let numbers = inputString.match(/\d+/g);
+    numbers = numbers.filter(n => n.length < 4);
+
+    const negativeNumbers = inputString.match(/-\d/);
 
     if (negativeNumbers) {
       throw new Error(`Negatives not allowed. '${negativeNumbers}'`)
     }
 
-    if (numbers) {
-      return numbers.reduce((curr, prev) => Number(prev) + Number(curr), 0);
-    }
-
-    return 0;
+    return numbers.reduce((curr, prev) => Number(prev) + Number(curr), 0);
   }
 }
 
