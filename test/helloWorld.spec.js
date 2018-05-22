@@ -89,4 +89,24 @@ describe('simpleCalculator', () => {
   	// then
 			assert.equal(result, 7);
 	});
+
+  it('should throw with negative values', () => {
+    // then
+    assert.throws(() => simpleCalculator('-1,2,-3'), "negatives not allowed: -1, -3");
+  });
+
+  it('ignores number bigger than 1000', () => {
+    const result = simpleCalculator('3,1001,6,2000,1');
+
+    // then
+    assert.equal(result, 10);
+	});
+
+  it('should return the sum with usage of different multiletter delimiter', () => {
+    // when
+    const result = simpleCalculator('//abcs\n1abcs2abcs4');
+
+    // then
+    assert.equal(result, 7);
+  });
 });
