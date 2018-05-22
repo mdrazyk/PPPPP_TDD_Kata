@@ -68,4 +68,26 @@ describe('Calculator', () => {
       add('2,-5,10,-11');
 		}, /negatives not allowed. Passed:-5,-11/);
 	});
+
+  it('ignores numbers bigger than 1000', () => {
+  	// given
+		const add = Calculator.add;
+
+		// when
+		const result = add('1000,5,10,2000');
+
+		// then
+		assert.equal(result, 1015);
+	});
+
+  it('works with long delimiters', () => {
+    // given
+    const add = Calculator.add;
+
+    // when
+    const result = add('//***\n1***2***3');
+
+    // then
+    assert.equal(result, 6);
+  });
 });

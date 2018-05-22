@@ -5,18 +5,36 @@ const HelloWorld = () => {
 
 	const add = (arg) => {
 		let splitBy = /\n|,/g;
-		let split = arg;
+		let toSplit = arg;
 
-		if (arg && arg.split('\n')[0].includes('//')) {
-			const [first, ...rest] = argArr;
-			splitBy = argArr[0].replace('//', '');
-			split = rest.join('\n');
+		const splittedByNewline = arg.split('\n');
+		if (arg && splittedByNewline[0].includes('//')) {
+			const [first, ...rest] = splittedByNewline;
+
+			let regexResults;
+			while(regexResults = )
+			splitBy = first.replace('//', '');
+			toSplit = rest.join('\n');
 		}
 
-		return split.split(splitBy).reduce((total, element) => {
-      return total + parseInt(element || 0);
-    }, 0);
-  };
+		const result = toSplit.split(splitBy).reduce(
+			({ total, negatives }, element) => {
+				const numberToAdd = parseInt(element || 0);
+
+				return {
+					total: numberToAdd > 1000 ? total : total + numberToAdd,
+					negatives: numberToAdd < 0 ? [...negatives, numberToAdd] : negatives,
+				}
+			},
+			{total: 0, negatives: []}
+		);
+
+		if (result.negatives.length) {
+      throw new Error(`negatives not allowed. Passed:${result.negatives.join(',')}`)
+		}
+
+		return result.total;
+	};
 
 	return {
 		add,
