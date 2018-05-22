@@ -90,4 +90,15 @@ describe('Calculator', () => {
     // then
     assert.equal(result, 6);
   });
+
+  it('works with many delimiters', () => {
+    // given
+    const add = Calculator.add;
+
+    // when
+    const result = add('//[*][%]\n1*2%3*5');
+
+    // then
+    assert.equal(result, 11);
+  });
 });

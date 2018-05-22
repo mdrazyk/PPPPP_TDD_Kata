@@ -10,11 +10,18 @@ const HelloWorld = () => {
 		const splittedByNewline = arg.split('\n');
 		if (arg && splittedByNewline[0].includes('//')) {
 			const [first, ...rest] = splittedByNewline;
-			splitBy = first.replace('//', '');
+
+			if (first.startsWith('//[')) {
+				splitBy = new RegExp(first.slice(3).slice(0, -1).replace('][', '|').replace('*', '\\*'));
+      } else {
+        splitBy = first.replace('//', '');
+			}
 			toSplit = rest.join('\n');
 		}
 
-		const result = toSplit.split(splitBy).reduce(
+		const numbers = toSplit.split(splitBy);
+
+		const result = numbers.reduce(
 			({ total, negatives }, element) => {
 				const numberToAdd = parseInt(element || 0);
 
