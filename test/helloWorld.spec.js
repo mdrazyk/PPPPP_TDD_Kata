@@ -82,11 +82,11 @@ describe('simpleCalculator', () => {
 		assert.equal(result, 21);
 	});
 
-  if('should return the sum with usage of different delimiter', () => {
+  it('should return the sum with usage of different delimiter', () => {
   	// when
-  	const result = simpleCalculator('\\x\n1x2x3');
+  	const result = simpleCalculator('//x\n1x2x4');
 
   	// then
-			assert.equal(result, 6);
+			assert.equal(result, 7);
 	});
 });
