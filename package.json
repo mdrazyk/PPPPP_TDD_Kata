@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --compilers js:babel-core/register"
+    "test": "mocha --compilers js:babel-core/register",
+    "eslint": "eslint ./src ./test --fix"
   },
   "author": "Brainhub",
   "license": "ISC",
@@ -16,7 +17,7 @@
   },
   "dependencies": {
     "eslint": "^4.9.0",
-    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-config-airbnb-base": "^13.0.0",
     "eslint-plugin-import": "^2.7.0"
   }
 }

@@ -37,3 +37,15 @@ yarn test
 ```
 
 You can also run your test with ```--watch``` tag to run them continuously
+
+## Code formatting
+
+```
+npm run eslint
+```
+
+or
+
+```
+yarn eslint
+```
